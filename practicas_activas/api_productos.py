@@ -21,6 +21,17 @@ def index():
 def obtener_productos():
     return productos
 
+@app.delete('/producto/{producto_id}')
+def elimina_producto_por_id(producto_id: str):
+    resultado = list(filter(lambda p: p.id == producto_id, productos))
+
+    if len(resultado):
+        producto = resultado[0]
+        productos.remove(producto)
+        return {'message': f'Producto con {producto_id} fue eliminado satisfactoriamente'}
+
+
+
 
 @app.post('/producto')
 def crear_producto(producto: Producto):
