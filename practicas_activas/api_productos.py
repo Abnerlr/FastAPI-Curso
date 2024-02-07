@@ -1,9 +1,9 @@
+from uuid import uuid4 as uuid
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Optional
 
 class Producto(BaseModel):
-    id: Optional[str] = None
+    id: uuid
     nombre: str
     precio_compra: float
     precio_venta: float
