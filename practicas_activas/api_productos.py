@@ -53,3 +53,20 @@ def obtener_producto_por_id(producto_id: str):
     #return{'mensaje': f'El producto con el id {producto_id} no fue encontrado'}
 
     raise HTTPException(status_code=404, detail=f'El producto con id {producto_id} no fue encontrado')
+
+
+@app.put('/producto{producto_id}')
+def actualizar_producto(producto_id: str, producto: Producto):
+    resultado = list(filter(lambda p: p.id == producto_id, productos))
+
+    if len(resultado):
+        producto_encontrado = resultado[0]
+        producto_encontrado.nombre = producto.nombre
+        producto_encontrado.precio_compra = producto.precio_compra
+        producto_encontrado.precio_venta = producto.precio_venta
+        producto_encontrado.provedor = producto.provedor
+
+        return producto_encontrado
+
+    
+    raise HTTPException(status_code=404, detail=f'El producto con id {producto_id} no fue encontrado')
